@@ -1,7 +1,7 @@
 var change = 0;
 var totalToPay = 0;
 var messagePostPay = "";
-var products = [["Coca cola",4000], ["Corona",5000], ["Big Cola",2500], ["Pepsi",3000], ["Aguila",3500], ["Agua",2000]];
+var products = [["Coca cola",4000], ["Corona",5000], ["Big Cola",2500], ["Pepsi",3000], ["Soda",3500], ["Agua",2000]];
 
 
 /* productos: 
@@ -10,7 +10,7 @@ coca cola = 4000 ----> A1
 corona = 5000 -------> A2
 big cola  = 2500 -----> A3 
 pepsi = 3000 -------->  B1
-aguila = 3500 -------> B2
+Soda = 3500 -------> B2
 agua = 2000  --------> B3 */
 
 function init() {
@@ -154,8 +154,8 @@ function buySoda(soda) {
       }, 6000);
       
   }
-  else if (change > 0){
-      $("#cancel-info__message").text("¡Genial! disfruta tu refresco"+ "$"+change+" han sido devueltos");
+  else if (change >= 0){
+      $("#cancel-info__message").text("¡Genial! disfruta tu "+sodaName+ ", $"+change+" han sido devueltos");
       $("#show-info__message").text("");
       totalToPay =0;
       change =0;

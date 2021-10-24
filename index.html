@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
 <body onload="init()">
     
@@ -14,77 +15,51 @@
     <div class="container mt-5">
         <div class="app">
             <div class="row mt-2">
-                <div class="col-md-8 col-xl-8 col-sm-12">
-                    <div class="row row-products">
+                <div class="col-md-8 col-xl-8 col-sm-12 products-container">
+                    <div class="row row-products d-flex justify-content-center">
                         <div class="col-md-3 card-product">
-                            <!-- img class="card-product__img" src="https://images.pexels.com/photos/4113616/pexels-photo-4113616.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" /> -->
-
-                            COCA COLA
-                            <span class="card-product__price"></span>
-
-                            <span class="card-product__identify"></span>
-
+                          
+                            <img class="card-product__img" src="https://i.ibb.co/41tqVK1/coca-cola-png.png"/>
+                            <h3><span class="badge bg-warning">$4000</span></h3>
+                            <h4><span class="badge bg-secondary">A1</span></h4>
+                          
+                            
                         </div>
                         <div class="col-md-3 card-product">
-                            <!-- img class="card-product__img" src="https://images.pexels.com/photos/4113616/pexels-photo-4113616.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" /> -->
-
-                            COCA COLA
-                            <span class="card-product__price"></span>
-
-                            <span class="card-product__identify"></span>
-
+                            <img class="card-product__img" src="https://i.ibb.co/WsjCstg/cerveza-corona.png"/>
+                            <h3><span class="badge bg-warning">$5000</span></h3>
+                            <h4><span class="badge bg-secondary">A2</span></h4>
                         </div>
                         <div class="col-md-3 card-product">
-                            <!-- img class="card-product__img" src="https://images.pexels.com/photos/4113616/pexels-photo-4113616.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" /> -->
-
-                            COCA COLA
-                            <span class="card-product__price"></span>
-
-                            <span class="card-product__identify"></span>
-
+                            <img class="card-product__img" src="https://i.ibb.co/Czcx62n/jugo-hit-Photo-Room.png" />
+                            <h3><span class="badge bg-warning">$2500</span></h3>
+                            <h4><span class="badge bg-secondary">A3</span></h4>
                         </div>
                     </div>
-                    <div class="row row-products">
+                    <div class="row row-products mt-4 d-flex justify-content-center">
                         <div class="col-md-3 card-product">
-                            <!-- img class="card-product__img" src="https://images.pexels.com/photos/4113616/pexels-photo-4113616.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" /> -->
-
-                            COCA COLA
-                            <span class="card-product__price"></span>
-
-                            <span class="card-product__identify"></span>
-
+                            <img class="card-product__img" src="https://i.ibb.co/zh0KC8V/pepsi-png.png"/>
+                            <h3><span class="badge bg-warning">$3000</span></h3>
+                            <h4><span class="badge bg-secondary">B1</span></h4>
                         </div>
                         <div class="col-md-3 card-product">
-                            <!-- img class="card-product__img" src="https://images.pexels.com/photos/4113616/pexels-photo-4113616.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" /> -->
-
-                            COCA COLA
-                            <span class="card-product__price"></span>
-
-                            <span class="card-product__identify"></span>
-
+                            <img class="card-product__img" src="https://i.ibb.co/gJC3GLM/soda.png"/>
+                            <h3><span class="badge bg-warning">$3500</span></h3>
+                            <h4><span class="badge bg-secondary">B2</span></h4>
                         </div>
                         <div class="col-md-3 card-product">
-                            <!-- img class="card-product__img" src="https://images.pexels.com/photos/4113616/pexels-photo-4113616.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" /> -->
-
-                            COCA COLA
-                            <span class="card-product__price"></span>
-
-                            <span class="card-product__identify"></span>
-
+                            <img class="card-product__img" src="https://i.ibb.co/KjhtMxz/botella-de-agua-Photo-Room.png"/>
+                            <h3><span class="badge bg-warning">$2000</span></h3>
+                            <h4><span class="badge bg-secondary">B3</span></h4>
                         </div>
                     </div>
 
-                    <div class="row shop-info">
-                         <h4> Cantidad ingresada: $<span id="show-info__message">0</span></h4>
-
-                         <h4 id="cancel-info__message">Insertar tu dinero y selecciona un refresco<span></span> </h4>
-
-                    </div>
+               
                     
                 </div>
 
                 <div class="col-md-4 col-xl-4 col-sm-12">
-                    <div class="card p-3">
+                    <div class="card p-3 text-center">
                         <div class="row coins-container">
                             <h4>Dinero permitido</h4>
                             <div class="btn btn-group mb-2">
@@ -129,6 +104,18 @@
                        
 
 
+                        </div>
+                    </div>
+
+                    <div class="row shop-info mt-2 card">
+                        <div class="col-md-12 ">
+                            <div class="card_info">
+                                <h4> Cantidad ingresada: $<span id="show-info__message">0</span></h4>
+
+                                <h4 id="cancel-info__message">Insertar tu dinero y selecciona un refresco<span></span> </h4>
+                            
+                            </div>
+                            
                         </div>
                     </div>
                    
