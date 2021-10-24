@@ -1,7 +1,8 @@
 var change = 0;
 var totalToPay = 0;
 var messagePostPay = "";
-var products = [];
+var products = [["Coca cola",4000], ["Corona",5000], ["Big Cola",2500], ["Pepsi",3000], ["Aguila",3500], ["Agua",2000]];
+
 
 /* productos: 
 
@@ -10,7 +11,7 @@ corona = 5000 -------> A2
 big cola  = 2500 -----> A3 
 pepsi = 3000 -------->  B1
 aguila = 3500 -------> B2
-agua = 2000  --------> B3*/
+agua = 2000  --------> B3 */
 
 function init() {
   const coin_500 = 500;
@@ -39,22 +40,7 @@ function init() {
   });
 }
 
-function cancelShop() {
-  if (totalToPay > 0) {
-    messagePostPay =
-      "Transacción cancelada. $" + totalToPay + " han sido devueltos";
-    $("#cancel-info__message").text(messagePostPay);
 
-    setTimeout(() => {
-      $("#cancel-info__message").text(
-        "Insertar tu dinero y selecciona un refresco"
-      );
-    }, 6000);
-  }
-
-  $("#show-info__message").text("0");
-  totalToPay = 0;
-}
 
 
 
@@ -111,10 +97,75 @@ function getProducts() {
   }
 }
 
-function buy() {
-  if (!products) {
+
+function cancelShop() {
+  if (totalToPay > 0) {
+    messagePostPay =
+      "Transacción cancelada. $" + totalToPay + " han sido devueltos";
+    $("#cancel-info__message").text(messagePostPay);
+
     setTimeout(() => {
-      $("#cancel-info__message").text("Por favor, selecciona un producto");
+      $("#cancel-info__message").text(
+        "Insertar tu dinero y selecciona un refresco"
+      );
     }, 6000);
+  }
+
+  $("#show-info__message").text("0");
+  totalToPay = 0;
+  change =0;
+}
+
+
+function calculateChange(price){
+  try {
+    var tempChange =0;
+
+  if (totalToPay > 0){
+    return (tempChange = (totalToPay - price));
+  } 
+  
+  return tempChange;
+  } catch (error) {
+    console.error("Error"+error)
+  }
+  
+}
+
+function buySoda(soda) {
+  change = 0;
+  /* $("#cancel-info__message").text(messagePostPay); */
+  let sodaSelect = products[soda]
+  let sodaName = sodaSelect[0]
+  let sodaPrice = sodaSelect[1];
+
+  change = calculateChange(sodaPrice);
+
+  if (change < 0){
+      $("#cancel-info__message").text("Ups, aún te falta dinero para adquirir este producto"+ "$"+totalToPay+" han sido devueltos");
+      totalToPay =0;
+      change =0;
+      $("#show-info__message").text("");
+
+      setTimeout(() => {
+        $("#cancel-info__message").text(
+          "Insertar tu dinero y selecciona un refresco"
+        );
+      }, 6000);
+      
+  }
+  else if (change > 0){
+      $("#cancel-info__message").text("¡Genial! disfruta tu refresco"+ "$"+change+" han sido devueltos");
+      $("#show-info__message").text("");
+      totalToPay =0;
+      change =0;
+
+      setTimeout(() => {
+        $("#cancel-info__message").text(
+          "Insertar tu dinero y selecciona un refresco"
+        );
+      }, 6000);
+
+      
   }
 }
