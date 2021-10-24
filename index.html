@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="init()">
     
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="app">
             <div class="row mt-2">
                 <div class="col-md-8 col-xl-8 col-sm-12">
@@ -72,40 +73,68 @@
 
                         </div>
                     </div>
+
+                    <div class="row shop-info">
+                         <h4> Cantidad ingresada: $<span id="show-info__message">0</span></h4>
+
+                         <h4 id="cancel-info__message">Insertar tu dinero y selecciona un refresco<span></span> </h4>
+
+                    </div>
                     
                 </div>
 
                 <div class="col-md-4 col-xl-4 col-sm-12">
-                    <div class="row coins-container">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning coins-body">$500</button>
-                            <button type="button" class="btn btn-warning coins-body">$1000</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-success coins-body">$2000</button>
-                            <button type="button" class="btn btn-success coins-body">$5000</button>
-                        </div>
-                    </div>
-                    <div class="row mt-2 identify-container">
-                        <div class="identify-container__headText">
-                            <h4> Códigos de productos</h4>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info identify-container__button">A1</button>
-                                <button type="button" class="btn btn-info identify-container__button">A2</button>
-                                <button type="button" class="btn btn-info identify-container__button">A3</button>
+                    <div class="card p-3">
+                        <div class="row coins-container">
+                            <h4>Dinero permitido</h4>
+                            <div class="btn btn-group mb-2">
+                                <input id="coin_500" value="500" type="button" class="btn btn-warning btn-sm coins-body"></input>
+                                <button id="coin_1000" type="button" class="btn btn-warning btn-sm coins-body" value="1000">$1000</button>
                             </div>
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info identify-container__button">B1</button>
-                                <button type="button" class="btn btn-info identify-container__button">B2</button>
-                                <button type="button" class="btn btn-info identify-container__button">B3</button>
+                            <div class="btn btn-group mt-1">
+                                <button id="coin_2000" type="button" class="btn btn-success btn-sm coins-body" value="2000">$2000</button>
+                                <button id="coin_5000" value="5000" type="button" class="btn btn-success btn-sm coins-body">$5000</button>
                             </div>
                         </div>
+                        <div class="row mt-4 paid_cotainer">
+                            <div class="paid_cotainer__headText">
+                                <h4> Códigos de productos</h4>
+                            </div>
+                            <div class="paid-container__codes">
+                                <div class="btn-group">
+                                    <button id="a1_code" value="a1" type="button" class="btn btn-info paid_cotainer__button">A1</button>
+                                    <button id="a2_code" value="a2" type="button" class="btn btn-info paid_cotainer__button">A2</button>
+                                    <button id="a3_code" value="a3" type="button" class="btn btn-info paid_cotainer__button">A3</button>
+                                </div>
+    
+                                <div class="btn btn-group">
+                                    <button id="b1_code" value="b1" type="button" class="btn btn-info paid_cotainer__button">B1</button>
+                                    <button id="b2_code" value="b2" type="button" class="btn btn-info paid_cotainer__button">B2</button>
+                                    <button id="b3_code" value="b3" type="button" class="btn btn-info paid_cotainer__button">B3</button>
+                                </div>
+                            </div>
+
+                             <div class="paid-container__actions mt-3 align-center">
+                                 <h4 class="container-actions__title">Acciones</h4>
+                                 <div class="btn btn-group">
+                                    <button id="btn_cancel" onclick="cancelShop();" type="button" class="btn btn-danger paid_cotainer__button">Cancelar</button>
+
+                                    <button id="btn_buy" onclick="buy();" type="button"  class="btn btn-secondary paid_cotainer__button">Comprar</button>
+                                 </div>
+                             </div>                                   
+                       
+
+
+                        </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="scripts/index.js"></script>
+
+
 </body>
 </html>
