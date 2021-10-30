@@ -1,3 +1,4 @@
+
 var change = 0;
 var totalToPay = 0;
 var messagePostPay = "";

@@ -13,7 +13,7 @@ var estados = [];
 // controlar conexiones permitidas 
 var conexiones = [];
 
-var nodosVIS;
+var nodes;
 
 $(".pago").prop('disabled', true);
 $("#retirar").prop('disabled', true);
@@ -35,8 +35,8 @@ $("#retirar").on('click', (e)=>{
 function generarTablaTransiciones(producto){
     puntero = 0;
     $("#tabla_transiciones > tbody").empty();
-    $("#d-price-product").text("$"+producto);
-    $(".disable").prop('disabled', true);
+    $("#container-data__price").text(producto);
+    $(".code_products").prop('disabled', true);
     $(".pago").prop('disabled', false);
 
 
@@ -80,20 +80,20 @@ function generarTablaTransiciones(producto){
 
 
 
-function mostrarAutomata(tableTransition){
+function mostrarAutomata(transiciones){
     
     estados = [];
     conexiones = [];
-    nodosVIS;
+    nodes;
 
     // llenar los estados del autómata, teniendo en cuenta la tabla
-    for (let i = 0; i < tableTransition.length; i++) {
+    for (let i = 0; i < transiciones.length; i++) {
     
         // estado inicial
         if(i == 0){
             estados.push({
-                id: tableTransition[i].l1, 
-                label: ""+tableTransition[i].l1, 
+                id: transiciones[i].l1, 
+                label: ""+transiciones[i].l1, 
                 shape: "circle",
                 color:{
                     background: "#00aaff",
@@ -107,10 +107,10 @@ function mostrarAutomata(tableTransition){
             });
 
         // estado final
-        }else if(i == (tableTransition.length - 1)){
+        }else if(i == (transiciones.length - 1)){
             estados.push({
-                id: tableTransition[i].l1, 
-                label: ""+tableTransition[i].l1, 
+                id: transiciones[i].l1, 
+                label: ""+transiciones[i].l1, 
                 shape: "circle",
                 color:{
                     background: "#00244c",
@@ -127,8 +127,8 @@ function mostrarAutomata(tableTransition){
         // estados del primero al final - 1 
         }else{
             estados.push({
-                id: tableTransition[i].l1, 
-                label: ""+tableTransition[i].l1, 
+                id: transiciones[i].l1, 
+                label: ""+transiciones[i].l1, 
                 shape: "circle",
                 color:{
                     background: "#7AC23A",
@@ -144,29 +144,29 @@ function mostrarAutomata(tableTransition){
     }
 
     //relacionar las conexiones con los estados, y se validan que las transiciones sean válidas
-    for (let i = 0; i < tableTransition.length; i++) {
+    for (let i = 0; i < transiciones.length; i++) {
 
         
-        if(tableTransition[i].l2 != "-"){
+        if(transiciones[i].l2 != "-"){
             conexiones.push({
-                from: tableTransition[i].l1, to: tableTransition[i].l2, label: ""+(tableTransition[i].l2 - tableTransition[i].l1)
+                from: transiciones[i].l1, to: transiciones[i].l2, label: ""+(transiciones[i].l2 - transiciones[i].l1)
             });
         }
         
-        if(tableTransition[i].l3 != "-"){
+        if(transiciones[i].l3 != "-"){
             conexiones.push({
-                from: tableTransition[i].l1, to: tableTransition[i].l3, label: ""+(tableTransition[i].l3 - tableTransition[i].l1)
+                from: transiciones[i].l1, to: transiciones[i].l3, label: ""+(transiciones[i].l3 - transiciones[i].l1)
             });
         }
         
-        if(tableTransition[i].l4 != "-"){
+        if(transiciones[i].l4 != "-"){
             conexiones.push({
-                from: tableTransition[i].l1, to: tableTransition[i].l4,label: ""+(tableTransition[i].l4 - tableTransition[i].l1)
+                from: transiciones[i].l1, to: transiciones[i].l4,label: ""+(transiciones[i].l4 - transiciones[i].l1)
             });
         }
-        if(tableTransition[i].l5 != "-"){
+        if(transiciones[i].l5 != "-"){
             conexiones.push({
-                from: tableTransition[i].l1, to: tableTransition[i].l5,label: ""+(tableTransition[i].l5 - tableTransition[i].l1)
+                from: transiciones[i].l1, to: transiciones[i].l5,label: ""+(transiciones[i].l5 - transiciones[i].l1)
             });
         }
     }
@@ -177,7 +177,7 @@ function mostrarAutomata(tableTransition){
         autoResize: true,
         height: '100%',
         width: '100%',
-        nodosVIS:{
+        nodes:{
             borderWidth: 2,
             scaling: {
                 min: 700,
@@ -191,25 +191,25 @@ function mostrarAutomata(tableTransition){
             color: {
                 color: "black"
             },
-            arfilasTabla: "to",
+            arrows: "to",
             font: { size: 15, color:"black", face: "sans",},
         },
         interaction: {hover:false}
     };
 
     // nodos creados para la librería graficadora
-    nodosVIS = new vis.DataSet(estados);
+    nodes = new vis.DataSet(estados);
     
     
-    var container_automata = document.getElementById('container_automata');
+    var container_automata = document.getElementById('container-automata__visual');
     
     
     var data = {
-        nodosVIS: nodosVIS,
+        nodes: nodes,
         edges: conexiones
     };
     
-    var automata = new vis.Network(container_automata, data, options);
+    var network = new vis.Network(container_automata, data, options);
 
     
     recorrerEstados(0);
@@ -222,7 +222,7 @@ function recorrerEstados(estado) {
     let estadosValidos = [];
 
     if(estado == 0){
-        nodosVIS.update([{ id: estado, color: { background: "#009BFF", border: "#0061FF" } }]);
+        nodes.update([{ id: estado, color: { background: "#009BFF", border: "#0061FF" } }]);
     }
 
     if(estado == 500){ 
@@ -231,21 +231,21 @@ function recorrerEstados(estado) {
             estadosValidos.push(transiciones[i].l2); 
         }
         console.log(estadosValidos);
-        validateTransition(id,estadosValidos);
+        validateTransition(estado,estadosValidos);
     }
     if(estado == 1000){
         for(i = 0; i< transiciones.length;i++){
             if(transiciones[i].l3 != "-")
             estadosValidos.push(transiciones[i].l3); 
         }
-        validateTransition(id,estadosValidos);
+        validateTransition(estado,estadosValidos);
     }
     if(estado == 2000){
         for(i = 0; i< transiciones.length;i++){
             if(transiciones[i].l4 != "-")
             estadosValidos.push(transiciones[i].l4); 
         }
-        validateTransition(id,estadosValidos);
+        validateTransition(estado,estadosValidos);
     }
     if(estado == 5000){
         for(i = 0; i< transiciones.length;i++){
@@ -267,14 +267,14 @@ function validateTransition(estado,estadosValidos){
     // code para validar que el estado sea válido
 
     if(estadosValidos.includes(puntero)){ 
-        nodosVIS.update([
+        nodes.update([
              { id: puntero, color: { background: "#0088CC", border: "#0061FF" }}]);
         if((puntero - estado) == 0){
-            nodosVIS.update([{ id: (puntero - estado), color: { background: "#7AC23A", border: "#7AC23A"} }]);
+            nodes.update([{ id: (puntero - estado), color: { background: "#7AC23A", border: "#7AC23A"} }]);
         }else{
-            nodosVIS.update([{ id: (puntero - estado), color: { background: "#7AC23A", border: "#7AC23A" } }]);
+            nodes.update([{ id: (puntero - estado), color: { background: "#7AC23A", border: "#7AC23A" } }]);
         }
-        $("#d-acumulado").text("$"+puntero);
+        $("#container-data__counter").text("$"+puntero);
 
         // validar si el puntero está en el útimo estado
         if((estadosValidos.length - 1) == estadosValidos.indexOf(puntero)){
@@ -285,20 +285,32 @@ function validateTransition(estado,estadosValidos){
             
         }   
     }else{
-        puntero = puntero - id;
+        puntero = puntero - estado;
+        Swal.fire({
+            title: 'Ups, se excede el  pago del product',
+            width: 600,
+            padding: '3em',
+            background: '#fff url(/images/trees.png)',
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `
+          })
     } 
 }
 
 
 function cancelarBebida(){
     $(".disable").prop('disabled', false);
-    $("#d-price-product").text("$0");
-    $("#d-acumulado").text("$0");
-    $("#table > tbody").empty();
+    $("#container-data__price").text("0");
+    $("#container-data__counter").text("0");
+    $("#tabla_transiciones > tbody").empty();
     $(".pago").prop('disabled', true);
     $("#visualization").empty();
     $("#retirar").prop('disabled', true);
-    toastr.error("Pago de producto cancelado");
+    
 }
 
 function retirar(){
@@ -328,8 +340,8 @@ function retirar(){
             width: '90px'
         },100);
         $(".disable").prop('disabled', false);
-        $("#d-price-product").text("$0");
-        $("#d-acumulado").text("$0");
+        $("#container-data__price").text("$0");
+        $("#container-data__counter").text("$0");
         $("#leyenda").text('Precio producto')
         $("#table > tbody").empty();
         $(".pago").prop('disabled', true);

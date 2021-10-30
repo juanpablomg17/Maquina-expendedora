@@ -5,9 +5,12 @@
     box-sizing: border-box;
 }
 body{
-    background-image: url(../assets/fondoMaquinaBebidas.jpg);
+    /* background-image: url(../assets/backgroundCubos.jpg); */
+    background-color: #147a8b;
     background-repeat: no-repeat;
     background-size: cover;
+    backdrop-filter: blur(10px);
+    height: 100%;
 }
 .maquina_container{
     background-image: url(../assets/fondoMaquina.jpg);
@@ -18,15 +21,14 @@ body{
     height: 450px;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding: 0px 20px;
-    background-image: url(../assets/fondoBannerBebidas.jpg);
-    backdrop-filter: blur(100px);
+    padding: 0px 20px;/* background-image: url(../assets/fondoBannerBebidas.jpg);
+    backdrop-filter: blur(100px); */
     background-size: cover;
 }
 .card_product{
-    background: rgba(255,255,255,0.3);
-    border: 1px solid #fff;
+    background: rgba(255,255,255,0.4);
     border-radius: 10px;
+    padding: 5px 0px;
 }
 .products-container::-webkit-scrollbar{
     border-radius: 20px;
@@ -57,15 +59,21 @@ body{
     background-position-y: 0;
     width: 70px;
     height: 60px;
+    color: #000;
+    font-size: 17px;
+    font-weight: 900;
 }
 .btn-bills{
-    background-image: url(../assets/billete.png);
+    background-image: url(../assets/iconBillete.png);
     background-repeat: no-repeat;
     background-size: 70px 70px;
     background-position-x: 0;
     background-position-y: 0;
     width: 70px;
     height: 70px;
+    color: #000;
+    font-size: 17px;
+    font-weight: 900;
 }
 .card_info{
     text-align: center;
@@ -78,14 +86,15 @@ body{
     border: 1px solid #000;
     border-radius: 10px;
 }
-.control-container__data p{
+.control-container__data span{
     font-family: 'Big Shoulders Stencil Text', cursive;
-    font-size: 2rem;
-    color: rgb(15, 185, 228);
+    font-size: 1.3rem;
+    /* color: rgb(15, 185, 228); */
+    color: #fff;
     text-align: right;
 }
 .tabler-container{
-    height: 320px;
+    height: 300px;
     overflow-y: auto;
 }
 .tabler-container::-webkit-scrollbar{
@@ -99,3 +108,19 @@ body{
     border-radius: 20px;
     background-color: #949191;
 }
+.container_automata{
+    box-shadow: 0px 0px 9px 0px rgba(255,255,255,0.75);
+    height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.295);
+}
+.container-automata__visual{
+    height: 100%;
+    width: 100%;
+}
+
+
+

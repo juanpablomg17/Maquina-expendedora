@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "sweetalert2": "^11.1.9",
     "vis-network": "^9.1.0"
   }
 }
