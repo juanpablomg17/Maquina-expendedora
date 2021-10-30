@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Máquina Expendedora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/styles.css">
@@ -12,119 +12,201 @@
 <body onload="init()">
     
 
-    <div class="container mt-5">
+    <div class="container mt-1">
         <div class="app">
             <div class="row mt-2">
-                <div class="col-md-8 col-xl-8 col-sm-12 products-container">
-                    <div class="row row-products d-flex justify-content-center">
-                        <div class="col-md-3 card-product">
-                          
-                            <img class="card-product__img" src="https://i.ibb.co/41tqVK1/coca-cola-png.png"/>
-                            <h3><span class="badge bg-warning">$4000</span></h3>
-                            <h4><span class="badge bg-secondary">A1</span></h4>
-                          
+                
+                <div class="col-md-6">
+                    <div class="row maquina_container pb-2">
+                        <h1 style="color: #fff; font-weight: 900;" class="products-container__title text-center">Expendedor de bebidas</h1>
+                        <div class="col-md-7 products-container">
                             
-                        </div>
-                        <div class="col-md-3 card-product">
-                            <img class="card-product__img" src="https://i.ibb.co/WsjCstg/cerveza-corona.png"/>
-                            <h3><span class="badge bg-warning">$5000</span></h3>
-                            <h4><span class="badge bg-secondary">A2</span></h4>
-                        </div>
-                        <div class="col-md-3 card-product">
-                            <img class="card-product__img" src="https://i.ibb.co/Czcx62n/jugo-hit-Photo-Room.png" />
-                            <h3><span class="badge bg-warning">$2500</span></h3>
-                            <h4><span class="badge bg-secondary">A3</span></h4>
-                        </div>
-                    </div>
-                    <div class="row row-products mt-4 d-flex justify-content-center">
-                        <div class="col-md-3 card-product">
-                            <img class="card-product__img" src="https://i.ibb.co/zh0KC8V/pepsi-png.png"/>
-                            <h3><span class="badge bg-warning">$3000</span></h3>
-                            <h4><span class="badge bg-secondary">B1</span></h4>
-                        </div>
-                        <div class="col-md-3 card-product">
-                            <img class="card-product__img" src="https://i.ibb.co/gJC3GLM/soda.png"/>
-                            <h3><span class="badge bg-warning">$3500</span></h3>
-                            <h4><span class="badge bg-secondary">B2</span></h4>
-                        </div>
-                        <div class="col-md-3 card-product">
-                            <img class="card-product__img" src="https://i.ibb.co/KjhtMxz/botella-de-agua-Photo-Room.png"/>
-                            <h3><span class="badge bg-warning">$2000</span></h3>
-                            <h4><span class="badge bg-secondary">B3</span></h4>
-                        </div>
-                    </div>
+                            <div class="product-cotaniner__cards text-center pt-3">
 
-               
-                    
-                </div>
-
-                <div class="col-md-4 col-xl-4 col-sm-12">
-                    <div class="card p-3 text-center">
-                        <div class="row coins-container">
-                            <h4>Dinero permitido</h4>
-                            <div class="btn btn-group mb-2">
-                                <input id="coin_500" value="500" type="button" class="btn btn-warning btn-sm coins-body"></input>
-                                <button id="coin_1000" type="button" class="btn btn-warning btn-sm coins-body" value="1000">$1000</button>
-                            </div>
-                            <div class="btn btn-group mt-1">
-                                <button id="coin_2000" type="button" class="btn btn-success btn-sm coins-body" value="2000">$2000</button>
-                                <button id="coin_5000" value="5000" type="button" class="btn btn-success btn-sm coins-body">$5000</button>
-                            </div>
-                        </div>
-                        <div class="row mt-4 paid_cotainer">
-                            <div class="paid_cotainer__headText">
-                                <h4> Códigos de productos</h4>
-                            </div>
-                            <div class="paid-container__codes">
-                                <div class="btn-group">
-                                    <button id="a1_code" value="a1" type="button" class="btn btn-info paid_cotainer__button" onclick="buySoda(0)">A1</button>
-                                    <button id="a2_code" value="a2" type="button" class="btn btn-info paid_cotainer__button" onclick="buySoda(1)">A2</button>
-                                    <button id="a3_code" value="a3" type="button" class="btn btn-info paid_cotainer__button"
-                                    onclick="buySoda(2)">A3</button>
+                                <div class="row row-products">
+                                    <div class="col-md-6">
+                                      <div class="card_product">
+                                        <img class="card-product__img" src="https://i.ibb.co/41tqVK1/coca-cola-png.png"/>
+                                        <h3><span class="badge bg-success">$4000</span></h3>
+                                        <h4><button type="button" onclick="generarTablaTransiciones('4000')" class="btn btn-secondary">A1</button></h4>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card_product">
+                                            <img class="card-product__img" src="https://i.ibb.co/WsjCstg/cerveza-corona.png"/>
+                                            <h3><span class="badge bg-success">$5000</span></h3>
+                                            <h4><button type="button" onclick="generarTablaTransiciones('5000')" class="btn btn-secondary">A2</button></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-products mt-4">
+                                    <div class="col-md-6">
+                                        <div class="card_product">
+                                        <img class="card-product__img" src="https://i.ibb.co/Czcx62n/jugo-hit-Photo-Room.png" />
+                                        <h3><span class="badge bg-success">$2500</span></h3>
+                                        <h4><button type="button" onclick="generarTablaTransiciones('2500')" class="btn btn-secondary">A3</button></h4>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card_product">
+                                        <img class="card-product__img" src="https://i.ibb.co/zh0KC8V/pepsi-png.png"/>
+                                        <h3><span class="badge bg-success">$3000</span></h3>
+                                        <h4><button type="button" onclick="generarTablaTransiciones('3000')" class="btn btn-secondary">B1</button></h4>
+                                        </div>
+                                    </div>
+                                   
                                 </div>
     
-                                <div class="btn btn-group">
-                                    <button id="b1_code" value="b1" type="button" class="btn btn-info paid_cotainer__button"
-                                    onclick="buySoda(3)">B1</button>
-                                    <button id="b2_code" value="b2" type="button" class="btn btn-info paid_cotainer__button"
-                                    onclick="buySoda(4)">B2</button>
-                                    <button id="b3_code" value="b3" type="button" class="btn btn-info paid_cotainer__button"
-                                    onclick="buySoda(5)">B3</button>
+                                <div class="row row-products mt-4">
+                                    <div class="col-md-6">
+                                        <div class="card_product">
+                                        <img class="card-product__img" src="https://i.ibb.co/gJC3GLM/soda.png"/>
+                                        <h3><span class="badge bg-success">$3500</span></h3>
+                                        <h4><button type="button" onclick="generarTablaTransiciones('3500')" class="btn btn-secondary">B2</button></h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card_product">
+                                        <img class="card-product__img" src="https://i.ibb.co/KjhtMxz/botella-de-agua-Photo-Room.png"/>
+                                        <h3><span class="badge bg-success">$2000</span></h3>
+                                        <h4><button type="button" onclick="generarTablaTransiciones('2000')" class="btn btn-secondary">B3</button></h4>
+                                        </div>
+                                    </div>
+    
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        
+                    <div class="col-md-5 ">
+                        <div class="card p-3 control-container">
+                            <div class="row control-container__data">
+                                <p>Pago...</p>
+                                
+                                <p>$<span id="container-data__price">0</span></p>
+
+                                <p>$<span id="container-data__counter">0</span></p>
+                    
+                            </div>
+                            <div class="row coins-container mt-3 d-flex justify-content-center">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="button" style="padding: 12px;" val="500" class="btn-coins btn pago">500</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" style="padding: 12px;" val="1000" class="btn-coins btn pago">1000</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button type="button" style="padding: 12px;" val="500" class="btn-bills btn pago">2000</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" style="padding: 12px;" val="1000" class="btn-bills btn pago">5000</button>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <div class="button_container">
+                                        <button class="btn btn-success" type="button" onclick="comprar();">Comprar</button>
+                                    </div>
+                                </div>
 
-                             <div class="paid-container__actions mt-3 align-center">
-                                 <h4 class="container-actions__title">Acciones</h4>
-                                 <div class="btn btn-group">
-                                    <button id="btn_cancel" onclick="cancelShop();" type="button" class="btn btn-danger paid_cotainer__button">Cancelar</button>
-
-                                    <button id="btn_buy" onclick="buy();" type="button"  class="btn btn-secondary paid_cotainer__button">Comprar</button>
-                                 </div>
-                             </div>                                   
-                       
-
-
-                        </div>
-                    </div>
-
-                    <div class="row shop-info mt-2 card">
-                        <div class="col-md-12 ">
-                            <div class="card_info">
-                                <h4> Cantidad ingresada: $<span id="show-info__message">0</span></h4>
-
-                                <h4 id="cancel-info__message">Insertar tu dinero y selecciona un refresco<span></span> </h4>
-                            
+                                <div class="col-md-6">
+                                    <div class="button_container">
+                                        <button class="btn btn-danger" type="button" onclick="cancelar();">Cancelar</button>
+                                    </div>
+                                </div>
                             </div>
-                            
+                          
+                        </div>
+    
+                   
+                       
+                    </div>
+                    </div> 
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tabler-container">
+                                <table class="table table-light table-striped" id="tabla_transiciones">
+
+                                    <thead>
+                                        <tr>
+                                            <th colspan="5" class="text-center">Tabla de transiciones</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th class="text-center">Estados</th>
+                                            <th class="text-center">500</th>
+                                            <th class="text-center">1000</th>
+                                            <th class="text-center">2000</th>
+                                            <th class="text-center">5000</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="tabla-transiciones__body">
+                                        <tr>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                        </tr>
+                                        <tr>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                            <td>...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>   
+                            </div>
                         </div>
                     </div>
-                   
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            // GRÁFICO
+                        </div>
+                    </div>
                 </div>
+
+                
             </div>
         </div>
     </div>
 
-    <script src="scripts/index.js"></script>
+    <script src="JS/app.js"></script>
 
 
 </body>
