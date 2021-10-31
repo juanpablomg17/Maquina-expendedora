@@ -1,8 +1,17 @@
+
 // transiciones permitidas, para pintar la tablita de transiciones
 var transiciones = {};
 
 // alfabeto permitido
 var alfabeto = [500,1000,2000,5000];
+
+// Varaible que sirve para manipular los atributos del producto
+var producto = {
+    id: '',
+    nombre: '',
+    precio: '',
+    img: ''
+};
 
 // puntero que controla los movimientos
 var puntero = 0;
@@ -17,6 +26,7 @@ var nodes;
 
 $(".pago").prop('disabled', true);
 $("#retirar").prop('disabled', true);
+$("#btn_comprar").prop('disabled', true);
 
 
 // seleccionar bebida
@@ -32,22 +42,30 @@ $("#retirar").on('click', (e)=>{
 
 
 // crear tabla de transiciones, recibe como parámetro el producto como array
-function generarTablaTransiciones(producto){
+function generarTablaTransiciones(idProducto,valorProducto,nombreProducto,imgProducto){
+    producto.id= idProducto;
+    producto.nombre = nombreProducto;
+    producto.precio = valorProducto;
+    producto.img = imgProducto;
+
+    console.log(producto);
     puntero = 0;
     $("#tabla_transiciones > tbody").empty();
-    $("#container-data__price").text(producto);
+    $("#container-data__price").text(valorProducto);
+    $("#container-data__productName").text(nombreProducto);
     $(".code_products").prop('disabled', true);
     $(".pago").prop('disabled', false);
+    $("#data-message__show").text("");
 
 
     var filasTabla  = [];
 
     //definir los estados y asociarlos con las transiciones
-    for(i = 0; i<=producto; i+=500){
+    for(i = 0; i<=valorProducto; i+=500){
         var valoresCelda = [];
         valoresCelda.push(i);
         for(j = 0; j< alfabeto.length;j++){
-            if((i+alfabeto[j]) <= producto){
+            if((i+alfabeto[j]) <= valorProducto){
                 valoresCelda.push((i+alfabeto[j]));
             }else{
                 valoresCelda.push("-");
@@ -85,6 +103,7 @@ function mostrarAutomata(transiciones){
     estados = [];
     conexiones = [];
     nodes;
+
 
     // llenar los estados del autómata, teniendo en cuenta la tabla
     for (let i = 0; i < transiciones.length; i++) {
@@ -231,34 +250,34 @@ function recorrerEstados(estado) {
             estadosValidos.push(transiciones[i].l2); 
         }
         console.log(estadosValidos);
-        validateTransition(estado,estadosValidos);
+        validarRecorrido(estado,estadosValidos);
     }
     if(estado == 1000){
         for(i = 0; i< transiciones.length;i++){
             if(transiciones[i].l3 != "-")
             estadosValidos.push(transiciones[i].l3); 
         }
-        validateTransition(estado,estadosValidos);
+        validarRecorrido(estado,estadosValidos);
     }
     if(estado == 2000){
         for(i = 0; i< transiciones.length;i++){
             if(transiciones[i].l4 != "-")
             estadosValidos.push(transiciones[i].l4); 
         }
-        validateTransition(estado,estadosValidos);
+        validarRecorrido(estado,estadosValidos);
     }
     if(estado == 5000){
         for(i = 0; i< transiciones.length;i++){
             if(transiciones[i].l5 != "-")
             estadosValidos.push(transiciones[i].l5); 
         }
-        validateTransition(estado,estadosValidos);
+        validarRecorrido(estado,estadosValidos);
     }
 }
 
 
 //validar transiciones dependiendo el lenguaje ingresado
-function validateTransition(estado,estadosValidos){
+function validarRecorrido(estado,estadosValidos){
     
     puntero += estado;
 
@@ -274,80 +293,116 @@ function validateTransition(estado,estadosValidos){
         }else{
             nodes.update([{ id: (puntero - estado), color: { background: "#7AC23A", border: "#7AC23A" } }]);
         }
-        $("#container-data__counter").text("$"+puntero);
+        $("#container-data__counter").text(puntero);
 
         // validar si el puntero está en el útimo estado
         if((estadosValidos.length - 1) == estadosValidos.indexOf(puntero)){
-            alert('Pago completado');
-
-            $("#retirar").prop('disabled', false);
+            $("#btn_comprar").prop('disabled', false);
+            $("#data-message__show").text("Bebida lista, presiona en 'Comprar'");
             /* $(".pago").prop('disabled', true); */
             
         }   
     }else{
         puntero = puntero - estado;
-        Swal.fire({
-            title: 'Ups, se excede el  pago del product',
-            width: 600,
-            padding: '3em',
-            background: '#fff url(/images/trees.png)',
-            backdrop: `
-              rgba(0,0,123,0.4)
-              url("/images/nyan-cat.gif")
-              left top
-              no-repeat
-            `
-          })
+        $("#data-message__show").css("color", "#FF0000");
+        $("#data-message__show").text(`¡Dinero rechazado!,supera el precio del producto (`+producto.id+` `+producto.nombre+`)`);
+
+        setTimeout(()=> {
+            $("#data-message__show").css("color", "#fff");
+            $("#data-message__show").text("");
+        },5000);
+        
+
+        
     } 
 }
 
+function limpiarTabla(){
+    $("#tabla_transiciones > tbody").empty();
+    for(i = 0; i<5 ;i++){
+        var tr = `<tr>
+          <td class="text-center">...</td>
+          <td class="text-center">...</td>
+          <td class="text-center">...</td>
+          <td class="text-center">...</td>
+          <td class="text-center">...</td>
+        </tr>`;
+        $("#tabla-transiciones__body").append(tr);
+    }
+}
+
+function limpiarAutomata(){
+    $("#container-automata__visual").empty();
+}
 
 function cancelarBebida(){
-    $(".disable").prop('disabled', false);
+
+    let cashIngresado =  parseInt($("#container-data__counter").text());
+    $("#btn_comprar").prop('disabled', true);
+    if (cashIngresado > 0){
+        $("#data-message__show").text("$"+$("#container-data__counter").text()+ " fueron devueltos");
+        setTimeout(()=> {
+            $("#data-message__show").text("Elige un producto e introduce dinero");
+        },3000)
+        
+    }else{
+
+        $("#data-message__show").text("Transacción cancelada...");
+        setTimeout(()=> {
+            $("#data-message__show").text("Elige un producto e introduce dinero");    
+        },3000)
+        
+    }
+    
+    $("#container-data__productName").text('Producto');
+    $(".code_products").prop('disabled', false);
     $("#container-data__price").text("0");
     $("#container-data__counter").text("0");
-    $("#tabla_transiciones > tbody").empty();
     $(".pago").prop('disabled', true);
-    $("#visualization").empty();
-    $("#retirar").prop('disabled', true);
+    limpiarTabla();
+    limpiarAutomata();
+    
+    producto.id= '';
+    producto.nombre = '';
+    producto.precio = '';
+    producto.img = '';
+    
+
+
+
     
 }
 
-function retirar(){
+function comprarBebida() { 
+
+    let img = `<img src="`+producto.img+`" alt="product-image" style="width: 50px; height: 50px;"/>`
+    $("#container-data__productName").text('Producto');
+    $(".code_products").prop('disabled', false);
+    $("#container-data__price").text("0");
+    $("#container-data__counter").text("0");
+    limpiarTabla();
+    limpiarAutomata();
+
+    $("#data-message__show").text("Cargando "+producto.nombre+"...");
     
-    $("#coffee-out").animate({
-        left: '0px',
-        display: 'block',
-        right: '0px',
-        opacity: '0.9',
-        height: '170px',
-        width: '110px'
-    },700);
-    toastr.success("Sirviendo Café, Espere...");
-    setTimeout(()=>{
+    setTimeout(()=> {
+        $("#data-message__show").text("Listo para retirar");
+        $("#message-show__img").append(img);
         
-        $('#coffee-out').animate({
-            opacity: 0,
-            width: 180,
-            height: 250,
-            left: '100px',
-            display: 'none'
-        }, 1500);  
-    },3000);
-    setTimeout(() => {
-        $("#coffee-out").animate({
-            height: '150px',
-            width: '90px'
-        },100);
-        $(".disable").prop('disabled', false);
-        $("#container-data__price").text("$0");
-        $("#container-data__counter").text("$0");
-        $("#leyenda").text('Precio producto')
-        $("#table > tbody").empty();
-        $(".pago").prop('disabled', true);
-        $("#visualization").empty();
-        $("#retirar").prop('disabled', true);
-        toastr.success("Maquina disponible nuevamente");
-    }, 5000);
+    },3000)
+
+
+    setTimeout(()=> {
+        $("#data-message__show").text("");
+        $("#message-show__img").empty();
+        
+    },10000)
+
+
+
     
-}
+    
+
+    
+ }
+
