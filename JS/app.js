@@ -5,7 +5,7 @@ var transiciones = {};
 // alfabeto permitido
 var alfabeto = [500,1000,2000,5000];
 
-// Varaible que sirve para manipular los atributos del producto
+// Varaible que sirve para manipular los atributos del producto, pendiente validar bug
 var producto = {
     id: '',
     nombre: '',
