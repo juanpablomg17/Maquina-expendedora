@@ -355,9 +355,11 @@ function cancelarBebida(){
     }
     
     $("#container-data__productName").text('Producto');
+
     $(".code_products").prop('disabled', false);
     $("#container-data__price").text("0");
     $("#container-data__counter").text("0");
+    $("#message-show__img").empty();
     $(".pago").prop('disabled', true);
     limpiarTabla();
     limpiarAutomata();
