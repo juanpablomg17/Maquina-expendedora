@@ -1,12 +1,12 @@
 
 // transiciones permitidas, para pintar la tablita de transiciones
-var transiciones = {};
+let transiciones = {};
 
 // alfabeto permitido
-var alfabeto = [500,1000,2000,5000];
+let alfabeto = [500,1000,2000,5000];
 
-// Varaible que sirve para manipular los atributos del producto, pendiente validar bug
-var producto = {
+// letaible que sirve para manipular los atributos del producto, pendiente validar bug
+let producto = {
     id: '',
     nombre: '',
     precio: '',
@@ -14,15 +14,15 @@ var producto = {
 };
 
 // puntero que controla los movimientos
-var puntero = 0;
+let puntero = 0;
 
 // array para controlar los estados permitidos
-var estados = [];
+let estados = [];
 
 // controlar conexiones permitidas 
-var conexiones = [];
+let conexiones = [];
 
-var nodes;
+let nodes;
 
 $(".pago").prop('disabled', true);
 $("#retirar").prop('disabled', true);
@@ -58,11 +58,11 @@ function generarTablaTransiciones(idProducto,valorProducto,nombreProducto,imgPro
     $("#data-message__show").text("");
 
 
-    var filasTabla  = [];
+    let filasTabla  = [];
 
     //definir los estados y asociarlos con las transiciones
     for(i = 0; i<=valorProducto; i+=500){
-        var valoresCelda = [];
+        let valoresCelda = [];
         valoresCelda.push(i);
         for(j = 0; j< alfabeto.length;j++){
             if((i+alfabeto[j]) <= valorProducto){
@@ -84,7 +84,7 @@ function generarTablaTransiciones(idProducto,valorProducto,nombreProducto,imgPro
 
     //#LLENO LA TABLA CON LOS DATOS DE LAS TRANSCIONES
     for(i = 0; i< transiciones.length;i++){
-        var tr = `<tr>
+        let tr = `<tr>
           <td class="text-center">`+transiciones[i].l1+`</td>
           <td class="text-center">`+transiciones[i].l2+`</td>
           <td class="text-center">`+transiciones[i].l3+`</td>
@@ -191,7 +191,7 @@ function mostrarAutomata(transiciones){
     }
 
     
-    var options = {
+    let options = {
         physics: false,
         autoResize: true,
         height: '100%',
@@ -220,15 +220,15 @@ function mostrarAutomata(transiciones){
     nodes = new vis.DataSet(estados);
     
     
-    var container_automata = document.getElementById('container-automata__visual');
+    let container_automata = document.getElementById('container-automata__visual');
     
     
-    var data = {
+    let data = {
         nodes: nodes,
         edges: conexiones
     };
     
-    var network = new vis.Network(container_automata, data, options);
+    let network = new vis.Network(container_automata, data, options);
 
     
     recorrerEstados(0);
@@ -320,7 +320,7 @@ function validarRecorrido(estado,estadosValidos){
 function limpiarTabla(){
     $("#tabla_transiciones > tbody").empty();
     for(i = 0; i<5 ;i++){
-        var tr = `<tr>
+        let tr = `<tr>
           <td class="text-center">...</td>
           <td class="text-center">...</td>
           <td class="text-center">...</td>
