@@ -400,10 +400,7 @@ function comprarBebida() {
         
     },10000)
 
-
-
-    
-    
+    $("#btn_comprar").prop('disabled', true);
 
     
  }
