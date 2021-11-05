@@ -1,18 +1,11 @@
-// transiciones permitidas, para pintar la tablita de transiciones
-let transiciones = {};
-
-// alfabeto permitido
-let alfabeto = [500, 1000, 2000, 5000];
-
-// letaible que sirve para manipular los atributos del producto, pendiente validar bug
+// variable que sirve para manipular los atributos del producto
 let producto = {
   id: "",
   nombre: "",
   precio: "",
   img: "",
 };
-
-// puntero que controla los movimientos
+// puntero que controla los movimientos del autómata
 let puntero = 0;
 
 // array para controlar los estados permitidos
@@ -23,20 +16,17 @@ let conexiones = [];
 
 let nodes;
 
+// transiciones permitidas, para pintar la tablita de transiciones
+// teniendo en cuenta que se va de 500 en 500 barras
+let transiciones = {};
+
+// alfabeto permitido
+let alfabeto = [500, 1000, 2000, 5000];
+
 $(".pago").prop("disabled", true);
 $("#retirar").prop("disabled", true);
 $("#btn_comprar").prop("disabled", true);
-
-// seleccionar bebida
-$(".pago").on("click", (e) => {
-  let productoVal = parseInt($(e.currentTarget).attr("val"));
-  recorrerEstados(productoVal);
-});
-
-// retirar bebida
-$("#retirar").on("click", (e) => {
-  retirar();
-});
+$("#btn_cancelar").prop("disabled", true);
 
 const generarTablaTransiciones = (
   idProducto,
@@ -54,13 +44,14 @@ const generarTablaTransiciones = (
   $("#tabla_transiciones > tbody").empty();
   $("#container-data__price").text(valorProducto);
   $("#container-data__productName").text(nombreProducto);
+  $("#btn_cancelar").prop("disabled", false);
   $(".code_products").prop("disabled", true);
   $(".pago").prop("disabled", false);
   $("#data-message__show").text("");
 
   let filasTabla = [];
 
-  //2.	Para mostrar las filas de la tabla se tienen en cuenta dos cosas. La primera es que las transiciones de la tabla son $500 en $500, puesto es que es el valor más pequeño y la segunda es el valor del producto, dicho valor marcaría el fin del ciclo en este caso y sería el estado final.
+  //Para mostrar las filas de la tabla se tienen en cuenta dos cosas. La primera es que las transiciones de la tabla son $500 en $500, puesto es que es el valor más pequeño y la segunda es el valor del producto, dicho valor marcaría el fin del ciclo en este caso y sería el estado final.
   for (i = 0; i <= valorProducto; i += 500) {
     let valoresCelda = [];
     valoresCelda.push(i);
@@ -83,27 +74,7 @@ const generarTablaTransiciones = (
   transiciones = filasTabla;
 
   //#LLENO LA TABLA CON LOS DATOS DE LAS TRANSCIONES
-  for (i = 0; i < transiciones.length; i++) {
-    let tr =
-      `<tr>
-          <td class="text-center">` +
-      transiciones[i].estado_0 +
-      `</td>
-          <td class="text-center">` +
-      transiciones[i].estado_500 +
-      `</td>
-          <td class="text-center">` +
-      transiciones[i].estado_1000 +
-      `</td>
-          <td class="text-center">` +
-      transiciones[i].estado_2000 +
-      `</td>
-          <td class="text-center">` +
-      transiciones[i].estado_5000 +
-      `</td>
-        </tr>`;
-    $("#tabla-transiciones__body").append(tr);
-  }
+  llenarTabla(transiciones);
   mostrarAutomata(transiciones);
 };
 
@@ -287,7 +258,7 @@ const recorrerEstados = (estado) => {
 };
 
 //validar transiciones dependiendo el lenguaje ingresado
-const validarRecorrido = (estado, estadosValidos) => {
+async function validarRecorrido(estado, estadosValidos) {
   puntero += estado;
 
   //VALIDO QUE EL DINERO INGRESADO POR EL USUARIO ES UN VALIDO DENTRO DE LA COLUMNA DE UN LENGUAJE
@@ -317,25 +288,55 @@ const validarRecorrido = (estado, estadosValidos) => {
 
     // validar si el puntero está en el útimo estado
     if (estadosValidos.length - 1 == estadosValidos.indexOf(puntero)) {
-      $("#btn_comprar").prop("disabled", false);
-      $("#data-message__show").text("Bebida lista, presiona en 'Comprar'");
-      /* $(".pago").prop('disabled', true); */
+      await listaParaComprar();
     }
   } else {
     puntero = puntero - estado;
-    $("#data-message__show").css("color", "#FF0000");
-    $("#data-message__show").text(
-      `¡Dinero rechazado!,supera el precio del producto (` +
-        producto.id +
-        ` ` +
-        producto.nombre +
-        `)`
-    );
+    await noListaParaComprar(producto.id, producto.nombre);
+  }
+}
+async function listaParaComprar() {
+  $("#btn_comprar").prop("disabled", false);
+  $("#data-message__show").text("Bebida lista, presiona en 'Comprar'");
+  $(".pago").prop("disabled", true);
+}
 
-    setTimeout(() => {
-      $("#data-message__show").css("color", "#fff");
-      $("#data-message__show").text("");
-    }, 5000);
+async function noListaParaComprar(id, productName) {
+  $("#data-message__show").css("color", "#FF0000");
+  $("#data-message__show").text(
+    `¡Dinero rechazado!,supera el precio del producto (` +
+      id +
+      ` ` +
+      productName +
+      `)`
+  );
+  setTimeout(() => {
+    $("#data-message__show").css("color", "#fff");
+    $("#data-message__show").text("");
+  }, 5000);
+}
+
+const llenarTabla = (transiciones) => {
+  for (i = 0; i < transiciones.length; i++) {
+    let tr =
+      `<tr>
+              <td class="text-center">` +
+      transiciones[i].estado_0 +
+      `</td>
+              <td class="text-center">` +
+      transiciones[i].estado_500 +
+      `</td>
+              <td class="text-center">` +
+      transiciones[i].estado_1000 +
+      `</td>
+              <td class="text-center">` +
+      transiciones[i].estado_2000 +
+      `</td>
+              <td class="text-center">` +
+      transiciones[i].estado_5000 +
+      `</td>
+            </tr>`;
+    $("#tabla-transiciones__body").append(tr);
   }
 };
 
@@ -415,4 +416,11 @@ const comprarBebida = () => {
   }, 10000);
 
   $("#btn_comprar").prop("disabled", true);
+  $("#btn_cancelar").prop("disabled", true);
 };
+
+// seleccionar bebida
+$(".pago").on("click", (e) => {
+  let productoVal = parseInt($(e.currentTarget).attr("val"));
+  recorrerEstados(productoVal);
+});
